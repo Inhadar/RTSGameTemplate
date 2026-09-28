@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccy400ky4q76f"]
+
+[ext_resource type="Script" uid="uid://dy4i0dkxnd50r" path="res://Objects/missile.gd" id="1_ru3t1"]
+[ext_resource type="PackedScene" uid="uid://w70c2p0uf7qs" path="res://Objects/Trail.tscn" id="3_whxvt"]
+[ext_resource type="Script" uid="uid://bfsiv43blb4mp" path="res://Objects/trail.gd" id="4_1h5gh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_61p6e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_whxvt"]
+radius = 4.0
+
+[node name="missile" type="Area2D" groups=["Missile"]]
+collision_layer = 4
+collision_mask = 3
+priority = 1
+script = ExtResource("1_ru3t1")
+
+[node name="WaitTime" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Sprite2D" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, 1.25122e-06)
+scale = Vector2(8.00907, 8.00907)
+mesh = SubResource("SphereMesh_61p6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_whxvt")
+
+[node name="Trail" parent="." instance=ExtResource("3_whxvt")]
+top_level = true
+points = PackedVector2Array()
+width = 8.0
+script = ExtResource("4_1h5gh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="WaitTime" to="." method="_on_wait_time_timeout"]

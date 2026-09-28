@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://hxf0vnfk6g28"]
+
+[ext_resource type="Script" uid="uid://cmjsldyf58jqr" path="res://Scenes/main.gd" id="1_kln2b"]
+[ext_resource type="PackedScene" uid="uid://b52xksdf72cj1" path="res://Objects/Player.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://cai3kwwmsd58q" path="res://Objects/Enemy.tscn" id="2_idj7w"]
+[ext_resource type="PackedScene" uid="uid://bdkw4ics2huyc" path="res://GUİ/gui.tscn" id="4_rgh2o"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_kln2b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.533333, 0.294118, 0.137255, 1)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("2_idj7w")]
+position = Vector2(902, 187)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("2_idj7w")]
+position = Vector2(208, 172)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Player" parent="Players" instance=ExtResource("1_r150o")]
+position = Vector2(613, 422)
+
+[node name="Player2" parent="Players" instance=ExtResource("1_r150o")]
+position = Vector2(481, 422)
+
+[node name="GUİ" parent="." instance=ExtResource("4_rgh2o")]
+
+[connection signal="player_selected" from="GUİ" to="." method="_on_gui_player_selected"]
